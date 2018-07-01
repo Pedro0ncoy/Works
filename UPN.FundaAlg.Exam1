@@ -1,0 +1,190 @@
+////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////Practica T1//////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+Curso: Fundamentos de progrmación
+Profesora:ROSANNA ELIA YAURI LEON
+Nombres:Pedro Bernardo Oncoy Mexzo
+Duración: 1:45 min.
+FECHA: 05/06/18
+////////////////////////////////////////////////////////////////////////////////////
+
+problema:1
+////////////////////////////////////////////////////////////////////////////////////
+#include <iostream>
+#include <conio.h>
+#include <stdio.h>
+
+using namespace std;
+
+struct trabajo {
+int numero;
+char titulo[20];
+char autor[20];
+char editorial[20];
+int  anyo;
+} trabajador[10];
+
+int main() {
+int N=0,E=0;
+
+cout<< "Ingrese tipo revista (1) o libro (2)" << endl;
+cin >> E;
+
+if(E==1){  //revista
+
+cout<< "Ingrese numero de revistas" << endl;
+cin >> N;
+
+for(int I=0;I<N;I++){
+cout<< "Numero de referencia" << endl;
+cin >> trabajador[I].numero;
+cout<< "INGRESE SU Titulo" << endl;
+cin >> trabajador[I].titulo;
+cout<< "INGRESE SU autor" << endl;
+cin >> trabajador[I].autor;
+cout<< "INGRESE SU Editorial " << endl;
+cin >> trabajador[I].editorial;}
+
+//escritura
+cout<< "************************************" << endl;
+for(int I=0;I<N;I++){
+cout<< "\n Revista:"<<I+1;	
+cout<<"###################";
+cout<< "\n su Numero de referencia es: "<<trabajador[I].numero;
+cout<< "\n su Titulo es: "<<trabajador[I].titulo;
+cout<< "\n su Nombre del autor es: "<<trabajador[I].autor;
+cout<< "\n su Editorial es: "<<trabajador[I].editorial;
+}}	
+	
+if(E==2){     //libros
+
+cout<< "INGRESE NUMERO DE libros" << endl;
+cin >> N;
+
+for(int I=0;I<N;I++){
+cout<< "Numero de referencia" << endl;
+cin >> trabajador[I].numero;
+cout<< "INGRESE SU Titulo" << endl;
+cin >> trabajador[I].titulo;
+cout<< "INGRESE SU autor" << endl;
+cin >> trabajador[I].autor;
+cout<< "INGRESE SU Editorial " << endl;
+cin >> trabajador[I].editorial;
+cout<< "INGRESE SU Año " << endl;
+cin >> trabajador[I].anyo;}
+
+//escritura
+cout<< "************************************" << endl;
+for(int I=0;I<N;I++){
+cout<< "\n Libro:"<<I+1;	
+cout<<"###################";
+cout<< "\n su Numero de referencia es: "<<trabajador[I].numero;
+cout<< "\n su Titulo es: "<<trabajador[I].titulo;
+cout<< "\n su Nombre del autor es: "<<trabajador[I].autor;
+cout<< "\n su Editorial es: "<<trabajador[I].editorial;
+cout<< "\n su Año de publicación  es: "<<trabajador[I].anyo;
+}}
+
+getch();
+//return(0);
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+problema:2
+////////////////////////////////////////////////////////////////////////////////////
+
+#include <iostream>
+#include <conio.h>
+#include <stdio.h>
+
+using namespace std;
+
+struct nota {
+int nota1;
+int nota2;
+int nota3;
+} pers[100];
+
+struct personas{
+char nombre[20];
+struct nota f;
+} persona[100];
+
+int main() {
+int N=0,x=0,y=0;
+
+cout<< "INGRESE N NUMERO DE estudiantes" << endl;
+cin >> N;
+
+for(int i=0;i<N;i++){
+
+cout<<"Ingresar datos de usuario"<<i+1<<endl;
+cout<<"*************************"<<endl;
+cout<<"Ingrese nombre:"<<endl;
+cin>> persona[i].nombre;
+cout<<"Ingrese nota 1.:"<<endl;
+cin>> persona[i].f.nota1;
+cout<<"Ingrese nota 2.:"<<endl;
+cin>> persona[i].f.nota2;
+cout<<"Ingrese nota 3.:"<<endl;
+cin>> persona[i].f.nota3;
+
+}
+
+//cout<<"Los datos  del promedio:"<<endl;
+int a=0,b=0;
+float p1=0,p2=0;
+
+	for(int i=0;i<N;i++){
+		//cout<<"Datos de Alumno"<<i+1<<endl;
+		//cout<< "El nombre es:" << persona[i].nombre<<endl;
+		float s=0;
+		s=((persona[i].f.nota1) + (persona[i].f.nota2)+ (persona[i].f.nota3))/3;
+		//cout<< "El promedio es:" << s <<endl;
+		if(s>11){a++;} //aprobados
+		else {b++;}  //desaporbados
+		}
+
+p1=(a*100)/N;
+p2=(b*100)/N;
+
+cout<< "Alumnos aprobados:" << p1 <<"%" <<endl;
+cout<< "Alumnos desaprobados" << p2 <<"%" <<endl;
+
+getch();
+//return(0);
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
