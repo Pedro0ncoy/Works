@@ -1,0 +1,119 @@
+////////////////////////////////////////////////////////////////////////
+/////////////////////////////////Practica P2////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+Duración: 1:45 min.
+Docente: ROSANNA ELIA YAURI LEON        	                         
+ESTUDIANTE: Pedro Bernardo Oncoy Mexzo	
+CARRERA: Ing. sistemas	FECHA: 12/06/18	CLASE	
+////////////////////////////////////////////////////////////////////////
+
+1.Desarrollar un programa con estructura de arreglo de producto con los campos (cod_producto,nombre_prod,precio de producto, stock de producto) y mostrar el reporte de aquellos productos que tienen como mínimo  10 unidades de stock, aplicando punteros.
+
+#include<iostream>
+#include<conio.h>
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+
+// punteros
+using namespace std;
+struct alumno{
+	int cod_producto;
+	char nombre_prod[30];
+	int precio_producto;
+	int stock_producto;
+}producto[4],*ptr_est=producto;
+ 	
+int main(){
+int n=0;	
+cout<< "Ingrese el cantidad de tipos de productos: " << endl;
+cin >> n;
+//lectura de datos
+ 	for(int i=0;i<n;i++){
+ 		fflush(stdin);
+ 		cout<<"@@@@Ingreso-Producto:@@@@"<<endl;
+ 		cout<<"Ingresar cod.Producto:"<<endl;
+ 		cin>>(ptr_est+i)->cod_producto;
+ 		cout<<"Ingresar Nom.Producto:"<<endl;
+ 		cin>>(ptr_est+i)->nombre_prod;
+ 		cout<<"Ingresar Precio Producto:"<<endl;
+ 		cin>>(ptr_est+i)->precio_producto;
+ 		cout<<"Ingresar Stock Producto:"<<endl;
+ 		cin>>(ptr_est+i)->stock_producto;
+ 		cout<<"\n:";
+	 }
+//Escritura de datos
+ 	float max=10;
+ 	int i=0,pos=0;
+ 	for(i=0;i<n;i++){
+ 		if((ptr_est+i)->stock_producto>max){
+ 			pos=i;
+ 			
+ 	cout<<"REPORTE CON MAS DE 10 ITEMS"<<endl;
+ 	cout<<"*****************************"<<endl;
+ 	cout<<"Cod.producto :"<<(ptr_est+pos)->cod_producto<<endl;
+ 	cout<<"Nom.producto:"<<(ptr_est+pos)->nombre_prod<<endl;
+ 	cout<<"Precio.producto:"<<(ptr_est+pos)->precio_producto<<endl;
+ 	cout<<"Stock.producto:"<<(ptr_est+pos)->stock_producto<<endl;
+ 	
+		 }}
+
+ getch();
+ return 0; }
+
+////////////////////////////////////////////////////////////////////////
+
+2.Y con la misma estructura anterior mostrar los precios con un descuento del 40%, solo aquellos productos que su precio supere los 200 soles. Aplicando punteros.
+
+#include<iostream>
+#include<conio.h>
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+
+// punteros
+using namespace std;
+struct alumno{
+	int cod_producto;
+	char nombre_prod[30];
+	int precio_producto;
+	int stock_producto;
+}producto[4],*ptr_est=producto;
+ 	
+int main(){
+int n=0;	
+cout<< "Ingrese el cantidad de tipos de productos: " << endl;
+cin >> n;
+//lectura de datos
+ 	for(int i=0;i<n;i++){
+ 		fflush(stdin);
+ 		cout<<"@@@@Ingreso-Producto:@@@@"<<endl;
+ 		cout<<"Ingresar cod.Producto:"<<endl;
+ 		cin>>(ptr_est+i)->cod_producto;
+ 		cout<<"Ingresar Nom.Producto:"<<endl;
+ 		cin>>(ptr_est+i)->nombre_prod;
+ 		cout<<"Ingresar Precio Producto:"<<endl;
+ 		cin>>(ptr_est+i)->precio_producto;
+ 		cout<<"Ingresar Stock Producto:"<<endl;
+ 		cin>>(ptr_est+i)->stock_producto;
+ 		cout<<"\n:";
+	 }
+//Escritura de datos
+ 	float max=200;
+ 	int i=0,pos=0;
+ 	for(i=0;i<n;i++){
+ 		if((ptr_est+i)->precio_producto>max){
+ 			pos=i;
+ 			
+ 	cout<<"REPORTE CON PRECIOS MAYORES A S/.200"<<endl;
+ 	cout<<"************************************"<<endl;
+ 	cout<<"Cod.producto :"<<(ptr_est+pos)->cod_producto<<endl;
+ 	cout<<"Nom.producto:"<<(ptr_est+pos)->nombre_prod<<endl;
+ 	cout<<"Precio.producto:"<<(ptr_est+pos)->precio_producto<<endl;
+ 	cout<<"Stock.producto:"<<(ptr_est+pos)->stock_producto<<endl;
+ 	
+		 }}
+
+ getch();
+ return 0; }
