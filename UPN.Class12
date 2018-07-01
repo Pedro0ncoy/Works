@@ -1,0 +1,226 @@
+N00117619@upn.pe
+Zag19228
+
+//////////////////////////////////////
+1.-Un programa que escriba cierto texto:
+//////////////////////////////////////
+
+#include <iostream>
+#include <fstream>
+#include <stdio.h>
+#include <conio.h>
+
+using namespace std;
+
+int main() {
+
+ofstream archivo;
+archivo.open("datos.txt");
+
+archivo<<valor<< endl;
+archivo<<"Primera línea: "<< endl;
+archivo<<"Segunda línea: "<< endl;
+archivo<<"ultima línea: "<< endl;
+
+archivo.close();
+return 0;
+}
+
+//////////////////////////////////////
+2.-Un programa que guarde texto en un archivo .txt:
+//////////////////////////////////////
+
+#include <iostream>
+#include <fstream>
+#include <stdio.h>
+#include <conio.h>
+
+using namespace std;
+
+int main() {
+char valor[20];
+
+ofstream archivo;
+archivo.open("datos.txt");
+
+cout<<"Ingrese valores:"<<endl;
+cin>>valor;
+
+archivo<<valor<< endl;
+archivo<<"Primera línea: "<< endl;
+archivo<<"Segunda línea: "<< endl;
+archivo<<"ultima línea: "<< endl;
+
+
+archivo.close();
+return 0;
+}
+
+////////////////////////////////////////////////////////////////////////////
+3.-Un programa que encuentre el archivo en la ruta y si no muestere un error.
+////////////////////////////////////////////////////////////////////////////
+
+#include <iostream>
+#include <fstream>
+#include <stdio.h>
+#include <conio.h>
+
+using namespace std;
+void escribir();
+
+int main() {
+escribir();
+system("pause");
+return 0;
+}
+
+
+void escribir(){
+ofstream archivo;
+archivo.open("datos.txt",ios::out);
+if(archivo.fail()){cout<<"no se encontro el archivo"; exit(1);}
+
+archivo<<"Primera línea: "<< endl;
+archivo<<"Segunda línea: "<< endl;
+archivo<<"ultima línea: "<< endl;
+
+archivo.close();
+}
+
+
+////////////////////////////////////////////////////////////////////////////
+4.-Un programa que lea,escriba y modifice archivos.
+////////////////////////////////////////////////////////////////////////////
+
+
+#include <iostream>
+#include <fstream>
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+
+using namespace std;
+void presentaMenuGeneral();
+
+int main(){
+presentaMenuGeneral();
+}
+
+void presentaMenuGeneral(){
+string contenido;
+string contenido2;
+int opcion;
+do{
+
+system("cls");
+cout<<"Menu principal"<<endl;
+cout<<"---------------------"<<endl;
+cout<<"[1]Crear archivo de texto."<<endl;
+cout<<"[2]Abrir archivo de texto."<<endl;
+cout<<"[3]Modificar archivo de texto."<<endl;
+cout<<"[0]Salir del programa."<<endl;
+cout<<"---------------------"<<endl;
+cout<<"Ingresa la opcion:"<<endl;
+cin>>opcion;
+
+switch(opcion){
+case 0: break;
+case 1: {
+cout<<"Ingresa el nombre del archivo a crear(sin.txt)."<<endl;
+cin.ignore();
+getline(cin,contenido2);
+cout<<"Ingresa el contenido del archivo:";
+getline(cin,contenido);
+contenido2+= ".txt";
+ofstream fs(contenido2.c_str());
+fs<<contenido<<endl;
+fs.close();
+cout<<"El archivo ha sido creado correctamente"<<endl;
+system("pasuse");
+break;}
+case 2: {
+cout<<"Ingresa el nombre del archivo a leer(sin.txt)."<<endl;
+cin.ignore();
+getline(cin,contenido2);
+contenido2+= ".txt";
+ifstream fs(contenido2.c_str(),ios::in);
+char linea[128];
+long contador= 0L;
+if(fs.fail()){cerr<<"el fichero no existe."<<endl;}
+else
+while(!fs.eof()){
+fs.getline(linea,sizeof(linea));
+cout<<linea<<endl;
+if((++contador%24)==0){
+cout<<"continuar..";
+cin.get();}}
+fs.close();
+system("pause");
+break;}
+case 3: {
+cout<<"Ingresa el nombre del archivo a modificar(sin.txt)."<<endl;
+cin.ignore();
+getline(cin,contenido2);
+contenido2+= ".txt";
+cout<<"Ingresa el nuevo contenido del archivo."<<endl;
+getline(cin,contenido);
+ofstream fs(contenido2.c_str(),ios::out);
+fs<<contenido<<endl;
+fs.close();
+cout<<"El archivo ha sido modificado correctamente"<<endl;
+system("pasuse");
+break;}
+default: {
+cout<<"\nEl numero de opcion escirto no es valido"<<endl;
+system("pasuse");
+break;}
+}
+}while(opcion!=0);}
+
+
+Tarea: desarrollar los ejercicios propuestos.
+
+
+////////////////////////////////////////////////////////////////////////////
+5.-Un programa 
+////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
