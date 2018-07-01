@@ -1,0 +1,155 @@
+Exmamen T3: Fundamentos de programación:
+Nombre: Pedro Oncoy Mexzo
+Profe:Rosana Yauri
+
+//////////////////////////////////////////////////////////////////////////
+1.Desarrollar un programa que muestre la siguiente serie numérica:
+S=1/5+ 3/5+5/5+7/5….
+Aplicando recursividad.
+//////////////////////////////////////////////////////////////////////////
+
+#include <iostream>
+#include <conio.h>
+#include <stdio.h>
+#include <iostream>
+#include <stdio.h>
+
+using namespace std;
+
+float sumatoria(float n){
+if(n==1){return(n/5);}
+else{return(n/5+sumatoria(n-2));}}
+
+int mostrar(int n){
+	for(int i=0;i<=n-1;i=i+2){
+	cout<<sumatoria(n-i)<<endl;
+	}return 0;}
+
+int main (){
+float numero, n=0,m=0;
+cout<<"Ingrese un numero entero ";
+cin >> n;
+printf("El resultado es : %.3f\n ", sumatoria(2*n-1));
+mostrar(2*n-1);
+return 0;
+}
+
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+
+2.	La empresa "ENCUESTAFA" se dedica a realizar estudios estadísticos sobre diversos temas. Su último proyecto tiene como meta analizar el monto mensual aproximado que las personas gastan comprando gaseosas o algún otro tipo de bebida embotellada, según el sexo y edad.  Para probar las funcionalidades del programa desarrollado para este proyecto. Se desea realizar un programa en C++ que solicite el número de personas N con las que se trabajara y genere en un Arreglo un monto aleatorio entre 25 y 500 Nuevos Soles para cada una de las personas.Los géneros también se generan de manera aleatoria y las edades están comprendidas entre 15 – 50 años. 
+
+Se pide mostrar en pantalla:   
+•	El listado de los N montos generados al azar (N tendrá un valor máximo de 200) 
+
+•	La suma de gasto según cada género. 
+
+
+Aplicando recursividad
+
+//////////////////////////////////////////////////////////////////////////
+
+monto mensual(consumo)
+sexo
+edad
+nombre
+
+solicitar el número de personar: N
+genere un arreglo con un monto aleatorio para cada persona
+generos tmab de manera aleatoria sexo
+edades aleatoria
+
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+
+#include <conio.h>
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+using namespace std;
+void leer (int n);
+int i=0,j=0,k=0,s1=0,s2=0;
+
+//string s="MF";
+char sex[]={'M','F'};
+//char c=s[0];
+
+struct encuestas{
+	int  monto;
+	//char sexo[10];
+	int sexo;
+    int  edad;
+	char nombre[10];
+} encuesta[100];
+
+//escribir
+void generar(int n){
+if (n!=0){	
+encuesta[n].monto=rand()%476+25; //25-500
+//encuesta[n].sexo<<sex[rand()%2];
+encuesta[n].sexo=rand()%2;
+encuesta[n].edad=rand()%36+15; //15-50
+encuesta[n].nombre;
+//cout<<n<<".-"<<"sexxxx:  "<<sex[rand()%2]<<endl;
+cout<<n<<".-"<<"Ingresar monto :"<<encuesta[n].monto<<endl;
+cout<<n<<".-"<<"Ingresar sexo 1=M/ 0=F : "<<encuesta[n].sexo<<endl;
+cout<<n<<".-"<<"Ingresar edad :"<<encuesta[n].edad<<endl;
+cout<<n<<".-"<<"Ingresar nombre :"<<encuesta[n].nombre<<endl;
+getch();
+cout<<endl;
+generar(n-1);}}
+
+//nmontos
+void nmontos(int n){
+    if(n!=0){
+		if ((encuesta[n].monto)<201){
+           cout<<n<<".-"<<encuesta[n].monto<<endl;}
+           nmontos(n-1);}}
+           
+//suma por genero
+void genero(int n){
+    if(n!=0){
+		if(encuesta[n].sexo==0){s1=s1+encuesta[n].monto;} //Femenino
+		else{s2=s2+encuesta[n].monto;} //Masculino
+		   genero(n-1);
+		   }
+		  	cout<<"Monto total femenino: "<<s1<<endl;
+	        cout<<"Monto total masculino: "<<s2<<endl;
+		   }
+		         
+
+int main(){
+	int num;
+	srand(time(NULL));
+	cout<<"Indique el N de encuestados: "<<endl;
+	cin>>num;
+	cout<<endl;
+	generar(num);
+	cout<<endl;
+	cout<< "N montos entre 0 - 200::" << endl;
+	nmontos(num);
+	cout<<endl;
+	cout<<"*total N monto por genero::" << endl;
+	genero(num);
+	cout<<endl;
+	getch();
+	system("cls");
+	return 0;}
+
+
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
