@@ -1,0 +1,50 @@
+Para copiar datos estructurados de una web en un .csv:
+http://protoinformatico.com/2014/11/09/extraer-datos-estructurados-de-una-pagina-web-con-python-y-beautifullsoup/
+
+Guardar una html en un .txt:
+
+
+python:
+###para instalar el panda:
+pip install panda
+
+###para instalar el xlrd:
+pip install xlrd
+
+luego se tiene que correr el programa:
+
+from pandas import DataFrame, read_csv
+
+import pandas as pd
+datos=pd.ExcelFile('fuente_inc.xls')
+print (datos.sheet_names)
+HOJA1=datos.parse('Pruebita')
+#print(HOJA1)
+
+if ([datos['Incidencia'] = '111383356'])
+print datos['Incidencia']
+
+
+#HOJA2 = HOJA1 [HOJA1['Incidencia'] == '111383359'] 
+
+#print ('HOJA2')
+
+#print('Min: ', HOJA1['Incidencia'].min())
+#print('Max: ', HOJA1['Incidencia'].max())
+#print('Sum: ', HOJA1['Incidencia'].sum())
+
+#print (datos['user.dst'])
+#print (datos.ix[0:3])
+
+
+#programa de cambios
+#print "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+#print "Separador de ..."
+#print "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+
+#print "1.-Ingrese su archivo"
+#print "2.-Cosnsulte la feche"
+#print "0.-Salir"
+
+#print "Ingresa la nombre de tu archivo: "
+
