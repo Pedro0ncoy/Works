@@ -1,0 +1,150 @@
+////////////////////////////////////////////////////////////
+1.	Desarrollar un programa que:
+
+a) Ingrese  10  usuarios con atributos (nombre_usuario, clave_usuario)
+b) encriptar  atributo clave_usuario con carácter.
+c) y mostrar los reportes con nombres de usuarios y las claves del usuario debe de estar descencriptado.
+
+MOSTRAR EL RESULTADO EN EJERCICIO1.TXT
+
+//////////////////////////////////////////////////////////
+#include<iostream>
+#include<conio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<fstream>
+#include<locale.h>
+using namespace std;
+//estructura: Datos del usuario
+struct personas{
+	char nombre_usuario[30];
+	char clave_usuario[30];
+}atributos[10];
+//funci?n encriptar
+void encriptar(char palabra[],char c)
+{
+	int n = strlen(palabra);
+	for(int i=0;i<n;i++){
+	palabra[i] = palabra[i]^c;
+    }
+}
+//funci?n desencriptar
+void desencriptar(char palabra[],char c)
+{
+	int n= strlen(palabra);
+	for(int i=0;i<n;i++)
+	{
+	palabra[i] = palabra[i]^c;
+    }
+}
+//funci?n archivo
+void archivo_claves(){
+	char c;
+	int n=10;
+	ofstream archivo2; //muestra el registro total+encriptaci?n+desencriptaci?n
+
+	cout<<"************************"<<endl;
+	cout<<"* REGISTRO DE USUARIOS *"<<endl;
+	cout<<"************************"<<endl;
+	cout<<"Ingrese los 10 usuarios a registrar: "<<endl;
+	cout<<"------------------------------------ "<<endl;
+	//registramos los atributos del usuario
+  	for(int i=0;i<n;i++){
+		cout<<i+1<<". Ingrese el nombre del usuario: ";cin>>atributos[i].nombre_usuario;
+		cout<<i+1<<". Ingrese la clave del usuario: ";cin>>atributos[i].clave_usuario;
+		if(i<n-1)cout<<"----------------------------------------"<<endl;
+	}
+	//solicitamos el caracter de encriptaci?n
+	cout<<"**************************************"<<endl;
+	cout<<"Digite el caracter de encriptaci?n: ";
+	cin>>c;
+	cout<<"**************************************"<<endl;
+	cout<<"El archivo ha sido creado con ?xito"<<endl;
+	cout<<"**************************************"<<endl;
+
+	//ARCHIVO TOTAL
+	archivo2.open("EJERCICIO1.txt",ios::out); //creamos el 3er archivo
+
+	archivo2<<"******************************************"<<endl;
+	archivo2<<"* REGISTRO TOTAL DE USUARIOS ENCRIPTADOS *"<<endl;
+	archivo2<<"******************************************"<<endl;
+	archivo2<<endl;
+	//Imprimir nombre de usuario
+	for(int i=0;i<n;i++){
+    archivo2<<"LOGIN: "<<i+1<<" es: "<<atributos[i].nombre_usuario<<endl;
+    encriptar(atributos[i].clave_usuario,c);
+    archivo2<<"PASS-ENCRYPT: "<<i+1<<" es: "<<atributos[i].clave_usuario<<endl;
+	}
+
+    //Imprimir claves desencriptadas
+	archivo2<<"******************************************"<<endl;
+	archivo2<<"* REGISTRO TOTAL DE USUARIOS DESENCRIPTADOS *"<<endl;
+	archivo2<<"******************************************"<<endl;
+	archivo2<<endl;
+	for(int i=0;i<n;i++){
+	archivo2<<"LOGIN: "<<i+1<<" es: "<<atributos[i].nombre_usuario<<endl;
+	desencriptar(atributos[i].clave_usuario,c);
+    archivo2<<"PASS-DECRYPT: "<<i+1<<" es: "<<atributos[i].clave_usuario<<endl;
+	}
+	archivo2<<endl;
+}
+
+int main(){
+	setlocale(LC_CTYPE,"Spanish");
+    archivo_claves();
+	getch();
+	return 0;
+}
+
+//////////////////////////////////////////////////////////////////////////
+2.	Desarrollar un programa que muestre la siguiente serie numérica:
+
+S=1/5+ 3/5+5/5+7/5….
+
+Aplicando recursividad e iteraciones.
+MOSTRAR EL RESULTADO EN EJERCICIO2.TXT
+
+//////////////////////////////////////////////////////////////////////////
+
+
+#include <iostream>
+#include <conio.h>
+#include <stdio.h>
+#include <iostream>
+#include <stdio.h>
+#include<iostream>
+#include<conio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<fstream>
+#include<locale.h>
+
+using namespace std;
+
+float sumatoria(float n){
+if(n==1){return(n/5);}
+else{return(n/5+sumatoria(n-2));}}
+
+int mostrar(int n){
+	for(int i=0;i<=n-1;i=i+2){
+	cout<<sumatoria(n-i)<<endl;
+	}return 0;}
+
+int main (){
+	ofstream archivo2;
+float numero, n=0,m=0;
+cout<<"Ingrese un numero entero ";
+cin >> n;
+printf("El resultado es : %.3f\n ", sumatoria(2*n-1));
+mostrar(2*n-1);
+
+    archivo2.open("EJERCICIO2.txt",ios::out); //creamos el 3er archivo
+    archivo2<<"******************************************"<<endl;
+	archivo2<<"* SUMATORIA                              *"<<endl;
+	archivo2<<"******************************************"<<endl;
+	archivo2<<endl;
+	//Imprimir nombre de usuario
+    archivo2<<"El resultado es"<< sumatoria(2*n-1);
+	
+return 0;
+}
