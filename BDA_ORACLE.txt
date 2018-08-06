@@ -1,0 +1,62 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%Auditoria Oracle:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Creación de usuarios:    
+SQL>CREATE USER PONCOYM IDENTIFIED BY MYPWD$
+    DEFAULT TABLESPACE USERS
+    TEMPORARY TABLESPACE TEMP 
+    QUOTA UNLIMITED ON SYSTEM;
+SQL>GRANT CREATE SESION PONCOYM;
+Modificación de usuario: SQL>ALTER USER PONCOYM IDENTIFIED BY MYPWD@;
+Eliminación de usuario:  
+SQL>DROP USER PONCOYM;--baja de usuario
+SQL>DROP USER PONCOYM CASCADE;--baja de todos los objetos del usuario.
+SQL>REVOKE CREATE SESION FROM PONCOYM ;--para que no se vuelva a crear dicho login.
+
+Creación de perfiles:
+SQL>CREATE PROFILE app_user LIMIT 
+  SESSIONS_PER_USER                 2   --
+  CPU_PER_SESSION               10000   -- decimas de segundo
+  CPU_PER_CALL                      1   -- decimas de segundo
+  CONNECT_TIME              UNLIMITED   -- minutos
+  IDLE_TIME                        30   -- minutos
+  LOGICAL_READS_PER_SESSION   DEFAULT   -- DB BLOCKS
+  LOGICAL_READS_PER_CALL      DEFAULT   -- DB BLOCKS
+  -- COMPOSITE_LIMIT          DEFAULT   -- 
+  PRIVATE_SGA                     20M   -- 
+  FAILED_LOGIN_ATTEMPTS             3   --
+  PASSWORD_LIFE_TIME               30   -- dias
+  PASSWORD_REUSE_TIME              12   --
+  PASSWORD_REUSE_MAX        UNLIMITED   -- 
+  PASSWORD_LOCK_TIME          DEFAULT   -- dias
+  PASSWORD_GRACE_TIME               2   -- dias
+  PASSWORD_VERIFY_FUNCTION       NULL;
+
+TABLAS:
+Tabla maestra de usuarios:           select*from SYS.DBA_USERS
+Tabla mestra de perfiles de usuario: select*from SYS.DBA_PROFILES
+
+--perfiles de usuario:
+SELECT*FROM sys.DBA_PROFILES ORDER BY PROFILE, RESOURCE_TYPE
+--usuarios con password por defecto: Hardening
+SELECT*FROM sys.DBA_USERS_WITH_DEFPWD
+--roles de la bbdd:
+SELECT*FROM sys.DBA_ROLES
+--
+
+SELECT*FROM sys.DBA_USERS
+
+SELECT*FROM sys.DBA_PROFILES ORDER BY PROFILE, RESOURCE_TYPE
+
+SELECT USER_ID, USERNAME, PASSWORD, ACCOUNT_STATUS,LOCK_DATE,EXPIRY_DATE,DEFAULT_TABLESPACE,CREATED,PROFILE,AUTHENTICATION_TYPE FROM sys.DBA_USERS
+
+SELECT*FROM sys.DBA_ROLES
+
+
+
+
+
+
+
+
