@@ -1,0 +1,120 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%Formato de consulta a DBA: %%%%%%%%%%%%%%%%%%%%%%%
+Formato:
+-------
+*sysdate
+*checksum
+*PLSQL(condicional)
+*Guardar resultado en .csv(separado por comas) y que no muestre en pantalla.
+
+EJECUTAR:
+SQL>@C:/USERS/PONCOY-E/DATA/SEGURINFO-001.sql
+
+//////////////////////Store Procedure////////////////////////////////////////
+
+CREATE OR REPLACE PROCEDURE SEGURINFO-001 IS
+RUTA VARCHAR(500):= 'C:/USERS/PONCOY-E/DATA/SEGURINFO-001.TXT';
+BEGIN
+   SET HEADING OFF
+   SET FEEDBACK OFF
+   SPOOL RUTA
+   SELECT *,SYSDATE FROM SYS.DBA_USERS;
+   SPOOL OFF;   
+   SET FEEDBACK ON
+   SET HEADING ON
+
+   IF RESULT = 0 
+     DBMS_OUTPUT.put_line('No se encontró data.');
+   ELSE
+     --guardar en una ruta como .csv
+     DBMS_OUTPUT.put_line('Se exportó de existosamente.'); 
+END SEGURINFO-001;
+
+EXCUTE SP-SEG001;
+
+/////////////////////////Guarda el select en un csv formateado/////////////////
+https://descemp.com/2013/09/24/volcado-de-una-consulta-sql-a-fichero-csv/
+
+SET LINESIZE 80
+SET NEWPAGE NONE
+SET HEADING OFF
+SET COLSEP ''
+SET RECSEP OFF
+SET PAGESIZE 0
+SET FEEDBACK OFF
+SET TRIMOUT OFF
+SET TRIMSPOOL OFF
+SET VERIFY OFF
+SPOOL C:/USERS/PONCOY-E/DATA/SEGURINFO-001.TXT 
+select*from SYS.DBA_PROFILES
+SPOOL OFF;
+
+//////////////////////////Guardar en un texto plano/////////////////////////////
+http://www.dataprix.com/blogs/carlos/exportar-f-cilmente-datos-oracle-fichero-plano
+
+SET HEADING OFF
+SET FEEDBACK OFF
+SPOOL C:/USERS/PONCOY-E/DATA/SEGURINFO-001.TXT 
+select*from SYS.DBA_PROFILES
+SPOOL OFF;
+SET FEEDBACK ON
+SET HEADING ON
+
+////////////////////////////////////////////////////////////////////////////////
+
+--Para ejecutar:
+SELECT*FROM sys.DBA_PROFILES ORDER BY PROFILE, RESOURCE_TYPE; --Ver la configuración del password.
+SELECT*FROM SYS.DBA_ROLES;                                    --Ver los roles asociados.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Auditoría Oracle: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+****Creación de usuarios:    
+SQL>CREATE USER PONCOYM IDENTIFIED BY MYPWD$
+    DEFAULT TABLESPACE USERS
+    TEMPORARY TABLESPACE TEMP 
+    QUOTA UNLIMITED ON SYSTEM;
+SQL>GRANT CREATE SESION PONCOYM;
+Modificación de usuario: SQL>ALTER USER PONCOYM IDENTIFIED BY MYPWD@;
+Eliminación de usuario:  
+SQL>DROP USER PONCOYM;--baja de usuario
+SQL>DROP USER PONCOYM CASCADE;--baja de todos los objetos del usuario.
+SQL>REVOKE CREATE SESION FROM PONCOYM ;--para que no se vuelva a crear dicho login.
+
+****Creación de perfiles:
+SQL>CREATE PROFILE app_user LIMIT 
+  SESSIONS_PER_USER                 2   --
+  CPU_PER_SESSION               10000   -- decimas de segundo
+  CPU_PER_CALL                      1   -- decimas de segundo
+  CONNECT_TIME              UNLIMITED   -- minutos
+  IDLE_TIME                        30   -- minutos
+  LOGICAL_READS_PER_SESSION   DEFAULT   -- DB BLOCKS
+  LOGICAL_READS_PER_CALL      DEFAULT   -- DB BLOCKS
+  -- COMPOSITE_LIMIT          DEFAULT   -- 
+  PRIVATE_SGA                     20M   -- 
+  FAILED_LOGIN_ATTEMPTS             3   --
+  PASSWORD_LIFE_TIME               30   -- dias
+  PASSWORD_REUSE_TIME              12   --
+  PASSWORD_REUSE_MAX        UNLIMITED   -- 
+  PASSWORD_LOCK_TIME          DEFAULT   -- dias
+  PASSWORD_GRACE_TIME               2   -- dias
+  PASSWORD_VERIFY_FUNCTION       NULL;
+
+****TABLAS:
+Tabla maestra de usuarios: select*from SYS.DBA_USERS
+Tabla maestra de perfiles: select*from SYS.DBA_PROFILES
+Tabla maestra de roles:    select*from SYS.DBA_ROLES
+Tabla maestra de 
+
+--perfiles de usuario:
+SELECT*FROM sys.DBA_PROFILES ORDER BY PROFILE, RESOURCE_TYPE
+--usuarios con password por defecto: Hardening
+SELECT*FROM sys.DBA_USERS_WITH_DEFPWD
+--lista de usuarios:
+SELECT USER_ID, USERNAME, PASSWORD, ACCOUNT_STATUS,LOCK_DATE,EXPIRY_DATE,DEFAULT_TABLESPACE,CREATED,PROFILE,AUTHENTICATION_TYPE FROM sys.DBA_USERS
+--roles de la bbdd:
+SELECT*FROM sys.DBA_ROLES
+
+
+SELECT*FROM sys.DBA_PROFILES ORDER BY PROFILE, RESOURCE_TYPE;
+
