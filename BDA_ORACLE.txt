@@ -37,7 +37,7 @@ TABLAS:
 Tabla maestra de usuarios:           SYS.DBA_USERS
 Tabla mestra de perfiles de usuario: SYS.DBA_PROFILES
 
-************************DBA:ejecutar**********
+************************DBA:ejecutar**********************************
 --sysdate+checksum+modified
 1.---Tabla de usuarios:
 SELECT USER_ID, USERNAME, PASSWORD, ACCOUNT_STATUS,LOCK_DATE,EXPIRY_DATE,DEFAULT_TABLESPACE,
@@ -55,7 +55,14 @@ SELECT NUM,NAME,DESCRIPTION,TYPE,VALUE,DISPLAY_VALUE,ISDEFAULT,ISSES,ISSYS_MOD,I
 FROM SYS.V_$PARAMETER ORDER BY NAME;
 --privilegios por rol
 SELECT*FROM SESSION_PRIVS
-************************************************
+********************Para que lo guarde en CSV****************************
+spool on
+spool C:\Users\PEDROBERNARDO\Desktop\control.csv
+select username,  from dba_users;
+spool off
+
+sql>@C:\Users\PEDROBERNARDO\Desktop\control.sql 
+************************************************************************
 
 •• Consulta Oracle SQL sobre la vista que muestra el estado de la base de datos
 
