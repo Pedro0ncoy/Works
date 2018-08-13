@@ -1,0 +1,51 @@
+Sub CAPTURARDATOS()
+Dim fila As Long
+Dim duplicados As Boolean
+Dim dni, nom, ap, am, mensaje, Dniinv As String
+Dim edad As Integer
+
+On Error Resume Next
+Sheets("DNI").Select
+Range("A1").Select
+ActiveSheet.PasteSpecial Format:="HTML", Link:=False, DisplayAsIcon:= _
+        False, NoHTMLFormatting:=True
+On Error Resume Next
+Sheets("Formulario").Select
+dni = Worksheets("Corregir Dni").Range("E2").Value
+nom = Worksheets("Corregir Dni").Range("F2").Value
+ap = Worksheets("Corregir Dni").Range("G2").Value
+am = Worksheets("Corregir Dni").Range("H2").Value
+
+'Obtener la edad del usuario
+edad = Worksheets("DNI").Range("R13").Value
+
+'Dni invalido
+Dniinv = Worksheets("DNI").Range("G9").Value
+
+If (Dniinv = "El DNI ingreso no es válido") Then
+mensaje = "DNI INVALIDO"
+ElseIf (edad < 18) Then
+mensaje = "Menor de edad"
+Else
+mensaje = "Mayor de edad"
+End If
+
+'Obtener la fila disponible
+fila = Application.WorksheetFunction.CountA(Range("A:A")) + 1
+duplicados = False
+
+
+If Not duplicados Then
+    'Insertar datos capturados
+    Cells(fila, 1).Value = dni
+    Cells(fila, 2).Value = nom
+    Cells(fila, 3).Value = ap
+    Cells(fila, 4).Value = am
+    Cells(fila, 5).Value = mensaje
+    'Notificar al usuario
+End If
+
+Sheets("Colocar Dni a Validar").Select
+
+End Sub
+
