@@ -39,17 +39,22 @@ Tabla mestra de perfiles de usuario: SYS.DBA_PROFILES
 
 ************************DBA:ejecutar**********
 --sysdate+checksum+modified
---Tabla de usuarios:
+1.---Tabla de usuarios:
 SELECT USER_ID, USERNAME, PASSWORD, ACCOUNT_STATUS,LOCK_DATE,EXPIRY_DATE,DEFAULT_TABLESPACE,
 CREATED,PROFILE,AUTHENTICATION_TYPE, SYSDATE, ORA_HASH(USER_ID||USERNAME||DEFAULT_TABLESPACE||
 CREATED||PROFILE||AUTHENTICATION_TYPE) AS CHECKSUM FROM sys.DBA_USERS ORDER BY USER_ID ASC
---Tabla de perfiles:
+2.---Tabla de perfiles:
 SELECT PROFILE,RESOURCE_NAME,RESOURCE_TYPE,LIMIT,SYSDATE,ORA_HASH(PROFILE||RESOURCE_NAME||LIMIT)
 AS CHECKSUM FROM sys.DBA_PROFILES ORDER BY PROFILE, RESOURCE_TYPE
---usuarios con password por defecto: Hardening, no cambiaron su pass.
+3.---usuarios con password por defecto: Hardening, no cambiaron su pass.
 SELECT USERNAME,SYSDATE FROM sys.DBA_USERS_WITH_DEFPWD
 --roles de la bbdd:
 SELECT*FROM sys.DBA_ROLES
+--parametros de sistema
+SELECT NUM,NAME,DESCRIPTION,TYPE,VALUE,DISPLAY_VALUE,ISDEFAULT,ISSES,ISSYS_MOD,ISINS,ISMODIFIED,ISADJ,ISDEP,SYSDATE
+FROM SYS.V_$PARAMETER ORDER BY NAME;
+--privilegios por rol
+SELECT*FROM SESSION_PRIVS
 ************************************************
 
 •• Consulta Oracle SQL sobre la vista que muestra el estado de la base de datos
