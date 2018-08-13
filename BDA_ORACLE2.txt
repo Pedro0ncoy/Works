@@ -23,10 +23,10 @@ BEGIN
    SET HEADING ON
 
    IF RESULT = 0 
-     DBMS_OUTPUT.put_line('No se encontró data.');
+     DBMS_OUTPUT.put_line('No se encontrÃ³ data.');
    ELSE
      --guardar en una ruta como .csv
-     DBMS_OUTPUT.put_line('Se exportó de existosamente.'); 
+     DBMS_OUTPUT.put_line('Se exportÃ³ de existosamente.'); 
 END SEGURINFO-001;
 
 EXCUTE SP-SEG001;
@@ -62,26 +62,26 @@ SET HEADING ON
 ////////////////////////////////////////////////////////////////////////////////
 
 --Para ejecutar:
-SELECT*FROM sys.DBA_PROFILES ORDER BY PROFILE, RESOURCE_TYPE; --Ver la configuración del password.
+SELECT*FROM sys.DBA_PROFILES ORDER BY PROFILE, RESOURCE_TYPE; --Ver la configuraciÃ³n del password.
 SELECT*FROM SYS.DBA_ROLES;                                    --Ver los roles asociados.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%% Auditoría Oracle: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% AuditorÃ­a Oracle: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-****Creación de usuarios:    
+****CreaciÃ³n de usuarios:    
 SQL>CREATE USER PONCOYM IDENTIFIED BY MYPWD$
     DEFAULT TABLESPACE USERS
     TEMPORARY TABLESPACE TEMP 
     QUOTA UNLIMITED ON SYSTEM;
 SQL>GRANT CREATE SESION PONCOYM;
-Modificación de usuario: SQL>ALTER USER PONCOYM IDENTIFIED BY MYPWD@;
-Eliminación de usuario:  
+ModificaciÃ³n de usuario: SQL>ALTER USER PONCOYM IDENTIFIED BY MYPWD@;
+EliminaciÃ³n de usuario:  
 SQL>DROP USER PONCOYM;--baja de usuario
 SQL>DROP USER PONCOYM CASCADE;--baja de todos los objetos del usuario.
 SQL>REVOKE CREATE SESION FROM PONCOYM ;--para que no se vuelva a crear dicho login.
 
-****Creación de perfiles:
+****CreaciÃ³n de perfiles:
 SQL>CREATE PROFILE app_user LIMIT 
   SESSIONS_PER_USER                 2   --
   CPU_PER_SESSION               10000   -- decimas de segundo
