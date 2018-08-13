@@ -37,18 +37,20 @@ TABLAS:
 Tabla maestra de usuarios:           SYS.DBA_USERS
 Tabla mestra de perfiles de usuario: SYS.DBA_PROFILES
 
-**********DBA:ejecutar**********
+************************DBA:ejecutar**********
+--sysdate+checksum+modified
 --Tabla de usuarios:
 SELECT USER_ID, USERNAME, PASSWORD, ACCOUNT_STATUS,LOCK_DATE,EXPIRY_DATE,DEFAULT_TABLESPACE,
-CREATED,PROFILE,AUTHENTICATION_TYPE, SYSDATE FROM sys.DBA_USERS ORDER BY USER_ID ASC
+CREATED,PROFILE,AUTHENTICATION_TYPE, SYSDATE, ORA_HASH(USER_ID||USERNAME||DEFAULT_TABLESPACE||
+CREATED||PROFILE||AUTHENTICATION_TYPE) AS CHECKSUM FROM sys.DBA_USERS ORDER BY USER_ID ASC
 --Tabla de perfiles:
-SELECT PROFILE,RESOURCE_NAME,RESOURCE_TYPE,LIMIT, SYSDATE FROM sys.DBA_PROFILES 
-ORDER BY PROFILE, RESOURCE_TYPE
+SELECT PROFILE,RESOURCE_NAME,RESOURCE_TYPE,LIMIT,SYSDATE,ORA_HASH(PROFILE||RESOURCE_NAME||LIMIT)
+AS CHECKSUM FROM sys.DBA_PROFILES ORDER BY PROFILE, RESOURCE_TYPE
 --usuarios con password por defecto: Hardening, no cambiaron su pass.
-SELECT*FROM sys.DBA_USERS_WITH_DEFPWD
+SELECT USERNAME,SYSDATE FROM sys.DBA_USERS_WITH_DEFPWD
 --roles de la bbdd:
 SELECT*FROM sys.DBA_ROLES
-******************************
+************************************************
 
 •• Consulta Oracle SQL sobre la vista que muestra el estado de la base de datos
 
