@@ -2,19 +2,19 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%Auditoria Oracle:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Creaci髇 de usuarios:    
+Creaci贸n de usuarios:    
 SQL>CREATE USER PONCOYM IDENTIFIED BY MYPWD$
     DEFAULT TABLESPACE USERS
     TEMPORARY TABLESPACE TEMP 
     QUOTA UNLIMITED ON SYSTEM;
 SQL>GRANT CREATE SESION PONCOYM;
-Modificaci髇 de usuario: SQL>ALTER USER PONCOYM IDENTIFIED BY MYPWD@;
-Eliminaci髇 de usuario:  
+Modificaci贸n de usuario: SQL>ALTER USER PONCOYM IDENTIFIED BY MYPWD@;
+Eliminaci贸n de usuario:  
 SQL>DROP USER PONCOYM;--baja de usuario
 SQL>DROP USER PONCOYM CASCADE;--baja de todos los objetos del usuario.
 SQL>REVOKE CREATE SESION FROM PONCOYM ;--para que no se vuelva a crear dicho login.
 
-Creaci髇 de perfiles:
+Creaci贸n de perfiles:
 SQL>CREATE PROFILE app_user LIMIT 
   SESSIONS_PER_USER                 2   --
   CPU_PER_SESSION               10000   -- decimas de segundo
@@ -34,24 +34,21 @@ SQL>CREATE PROFILE app_user LIMIT
   PASSWORD_VERIFY_FUNCTION       NULL;
 
 TABLAS:
-Tabla maestra de usuarios:           select*from SYS.DBA_USERS
-Tabla mestra de perfiles de usuario: select*from SYS.DBA_PROFILES
+Tabla maestra de usuarios:           SYS.DBA_USERS
+Tabla mestra de perfiles de usuario: SYS.DBA_PROFILES
 
---perfiles de usuario:
-SELECT*FROM sys.DBA_PROFILES ORDER BY PROFILE, RESOURCE_TYPE
---usuarios con password por defecto: Hardening
+**********DBA:ejecutar**********
+--Tabla de usuarios:
+SELECT USER_ID, USERNAME, PASSWORD, ACCOUNT_STATUS,LOCK_DATE,EXPIRY_DATE,DEFAULT_TABLESPACE,
+CREATED,PROFILE,AUTHENTICATION_TYPE, SYSDATE FROM sys.DBA_USERS ORDER BY USER_ID ASC
+--Tabla de perfiles:
+SELECT PROFILE,RESOURCE_NAME,RESOURCE_TYPE,LIMIT, SYSDATE FROM sys.DBA_PROFILES 
+ORDER BY PROFILE, RESOURCE_TYPE
+--usuarios con password por defecto: Hardening, no cambiaron su pass.
 SELECT*FROM sys.DBA_USERS_WITH_DEFPWD
 --roles de la bbdd:
 SELECT*FROM sys.DBA_ROLES
---
-
-SELECT*FROM sys.DBA_USERS
-
-SELECT*FROM sys.DBA_PROFILES ORDER BY PROFILE, RESOURCE_TYPE
-
-SELECT USER_ID, USERNAME, PASSWORD, ACCOUNT_STATUS,LOCK_DATE,EXPIRY_DATE,DEFAULT_TABLESPACE,CREATED,PROFILE,AUTHENTICATION_TYPE FROM sys.DBA_USERS
-
-SELECT*FROM sys.DBA_ROLES
+******************************
 
 
 
