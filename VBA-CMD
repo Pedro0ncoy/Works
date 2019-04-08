@@ -1,0 +1,106 @@
+POO:(Programación Orientada a Objetos)
+---
+*Objetos:Propiedades/Atributos(puertas,venatnas,etc) y métodos(arrancar,frenar,etc)
+*Instancia:Es un particular de un objeto. Es un ejemplo de un objeto.
+*Jerarquia de objetos:Un objeto, pertenece a un objeto mayor que lo contiene.
+*Colecciones:Objetos que son similares pertenecen a una colección.
+*Referenciar:Utiliza la jerarquia y el operador punto para leer o escribir 
+             los valores de los atributos.
+*Procedimiento:Ejecuta acciones, es donde va el codigo.
+
+VBA:(Visual Basic for Application)
+---
+El objeto es una celda(Range)
+*Atributos:Bordes,fondo,valor,dirección,etc.
+*Métodos:Copiar,Borrar,Seleccionar,etc.
+*Jerarquia:Application,Workbooks,Worksheets,<Chart,Range,PivotTables,Names>
+*Colecciones:Worksheets tiene la colección de hojas, hoja1, hoja2, hoja3.
+             Workbooks tiene la colección de libros, libro1, libro2, libro3.
+             Sheets tiene la colección de Sheet1, Sheet2, Sheet3.
+*Referenciar:Si se omite un objeto en la referencia,se toma este objeto como activo.
+	     worksheets("HOja2").Range("F4")
+
+CMD:
+---
+Referncias: Ejemplos
+Application.workbooks("Libro1").worksheets("Hoja1").Range("b3").value=250
+
+Procedminieto: 
+/////////////////////////////////////////////////////////////////////
+
+Sub pedro()
+Entero = 250
+Worksheets("Hoja1").Range("b3").Value = Entero
+End Sub
+
+/////////////////////////////////////////////////////////////////////
+
+Sub pedro()
+resultado = MsgBox("Hola Mundo", vbYesNo + vbQuestion, "Mensaje especial")
+If resultado = vbYes Then
+MsgBox ("Correcto")
+Else: MsgBox ("Incorrecto")
+End If
+End Sub
+
+/////////////////////////////////////////////////////////////////////
+
+Sub pedro()
+resultado = MsgBox("Hola Mundo", vbAbortRetryIgnore + vbQuestion, "Mensaje especial")
+Select Case resultado
+    Case vbOK:     MsgBox "Se pulsó el botón Aceptar"
+    Case vbCancel: MsgBox "Se pulsó el botón Cancelar"
+    Case vbAbort:  MsgBox "Se pulsó el botón Anular"
+    Case vbRetry:  MsgBox "Se pulsó el botón Reintentar"
+    Case vbIgnore: MsgBox "Se pulsó el botón Omitir"
+    Case vbYes:    MsgBox "Se pulsó el botón Si"
+    Case vbNo:     MsgBox "Se pulsó el botón No"
+End Select
+End Sub
+
+/////////////////////////////////////////////////////////////////////
+Sub pedro()
+
+Dim fechaActual As Date
+Dim horaActual As Date
+
+fechaActual = Date 'Fecha actualizada
+horaActual = Now - Date 'Hora actualizada
+
+Worksheets("Hoja1").Range("b3").Value = fechaActual
+Worksheets("Hoja1").Range("c3").Value = horaActual
+
+End Sub
+
+/////////////////////////////////////////////////////////////////////
+
+Private Sub Worksheet_Change (ByVal As Range)
+Dim fechaActual As Date
+Dim horaActual As Date
+
+fechaActual = Date 'Fecha actualizada
+horaActual = Now - Date 'Hora actualizada
+
+Worksheets("Hoja1").Range("b3").Value = fechaActual
+Worksheets("Hoja1").Range("c3").Value = horaActual
+End Sub
+
+/////////////////////////////////////////////////////////////////////
+Private Sub Worksheet_Change(ByVal Target As Range)
+
+If Not Intersect(Target, Range("D1:D10")) Is Nothing Then
+Worksheets("Hoja1").Range("b4").Value = Date 'Fecha actualizada
+Worksheets("Hoja1").Range("c4").Value = Now - Date 'Hora actualizada
+Worksheets("Hoja1").Range("f4").Value = Target.Address
+End If
+End Sub
+/////////////////////////////////////////////////////////////////////
+Private Sub Worksheet_Change(ByVal Target As Range)
+
+If Not Intersect(Target, Range("$D:$D")) Is Nothing Then
+Cells(Target.Row, Target.Column - 3) = Date 'Fecha actualizada
+Cells(Target.Row, Target.Column - 2) = Now - Date 'Hora actualizada
+End If
+    
+End Sub
+/////////////////////////////////////////////////////////////////////
