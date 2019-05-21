@@ -2,9 +2,9 @@ Examenes CS MIT: https://courses.csail.mit.edu/6.042/spring18/
 ::::::::::::PYTHON:::::::::::::::
 1.-IMPORTAR:
 1.1.-Ejecutar un *.py(script) desde el IDLE.
-import os;
-os.system("start C:\Users\PEDROBERNARDO\Desktop\suma.py")
-1.2.-import os;os.system("start python C:\\Users\\PEDROBERNARDO\\Desktop\\suma.py")
+import os;os.system("start python C:\\Users\\PEDROBERNARDO\\Desktop\\suma.py")
+import os;os.system("start cmd")
+import os;os.system("start chrome https://www.facebook.com/")
 
 2.-TIPOS DE DATOS: PEP8:Variables
 2.2 Asinacion  nombre =valor 
@@ -13,17 +13,11 @@ num_real= 3.14159;print num_real
 tipo_cadena = "Hola mundo";print tipo_cadena
 tipo_bool= True;print tipo_bool
 //el booleano tiene que comenzar con T o F mayúscula.
-
-********************************
 ojo: //from decimal import *
->>> sum([Decimal('0.1')]*10) == Decimal('1.0')
-True
->>> sum([0.1]*10) == 1.0
-False
-*********************************
+>>> sum([Decimal('0.1')]*10) == Decimal('1.0') >>True
+>>> sum([0.1]*10) == 1.0                       >>False
 
 3.-OPERADORES MATEMATICOS: /PEP8:Colocar un espacio en blanco despues y antede de c/u operador.
-
 ENTEROS:
 sumar = 20 + 3; print sumar
 restar = 2 - 5; print restar
@@ -34,12 +28,9 @@ residuo= 27 % 4; print residuo
 exponente= 3 ** 4; print exponente
 
 REALES:
-dividir1 = 27.0 / 4.0; print dividir1
->>6.75
-dividir1 = 27.0 // 4.0; print dividir1
->>6.0
-mutiplicar = -3.40*10.2; print mutiplicar
->>-34.68
+dividir1 = 27.0 / 4.0; print dividir1 >>6.75
+dividir1 = 27.0 // 4.0; print dividir1 >>6.0
+mutiplicar = -3.40*10.2; print mutiplicar >>-34.68
 
 FUNCIONES NOTABLES:
 import math
