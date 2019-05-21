@@ -4,7 +4,7 @@ Examenes CS MIT: https://courses.csail.mit.edu/6.042/spring18/
 1.1.-Ejecutar un *.py(script) desde el IDLE.
 import os;
 os.system("start C:\Users\PEDROBERNARDO\Desktop\suma.py")
-1.2.-
+1.2.-import os;os.system("start python C:\\Users\\PEDROBERNARDO\\Desktop\\suma.py")
 
 2.-TIPOS DE DATOS: PEP8:Variables
 2.2 Asinacion  nombre =valor 
@@ -12,7 +12,7 @@ num_entero= 11; print num_entero
 num_real= 3.14159;print num_real
 tipo_cadena = "Hola mundo";print tipo_cadena
 tipo_bool= True;print tipo_bool
-//el booleano tiene que comenzar con T o F mayúscula.
+//el booleano tiene que comenzar con T o F mayÃºscula.
 
 ********************************
 ojo: //from decimal import *
@@ -65,4 +65,7 @@ print (len(mi_tupla))
 5.-LISTAS:
 mi_lista = ['indice cero',2,3.0,[1,2]]
 print
+
+6.-ETL: BONOBO
+pip install bonobo
 
