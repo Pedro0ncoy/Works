@@ -123,7 +123,7 @@ Sub Enlistar_Archivos()
 
     Worksheets("Hoja1").Range("a1").Select
     For Each archivo In carpeta.Files  'Obtener archivos del objeto Folder
-         ActiveCell.Value = ruta & archivo.Name
+         ActiveCell.Value = archivo.Name
          ActiveCell.Offset(1, 0).Select
     Next
     
