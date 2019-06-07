@@ -146,5 +146,43 @@ Loop
 
 End Sub
 
+//////////////////////////////////////ldap-report pbomv1////////////////////////////////////////////////////////////
 
+Sub Obtención_datos()
+
+Dim strRoot
+Dim LDAP1 As String 'declaro la variable dc01
+Dim LDAP2 As String 'declaro la variable dc02
+LDAP1 = "<LDAP://my.domain:389/DC=com,DC=pe>" 'controlador de dominio1
+LDAP2 = "<LDAP://my.domain:389/DC=com,DC=pe>" 'controlador de dominio2
+
+strFilter = "(&(objectCategory=Person)(objectClass=User))" 'filtro solo usuarios.
+strAttributes = "sAMAccountName,telephoneNumber,givenName,sn,displayName,mail,title,department,company" 'campos en reporte.
+strScope = "subtree" 'vista tipo arbol.
+
+Set cn = CreateObject("ADODB.Connection")  'se crea la conección.
+Set cmd = CreateObject("ADODB.Command")  'se crea el formato de comandos.
+
+cn.Provider = "ADsDSOObject"     'se instancia de AD.
+cn.Open "Active Directory Provider"   'se nombra a la coneción.
+cmd.ActiveConnection = cn     ' cambio de variable al atributo conección.
+cmd.Properties("Page Size") = 1000    ' se setea como maximo unas 1000 paginas de respuesta.
+cmd.Properties("Searchscope") = ADS_SCOPE_SUBTREE
+cmd.CommandText = LDAP1 & ";" & strFilter & ";" & strAttributes & ";" & strScope   'Concatena todos los parametros para el query.
+
+Set rs = cmd.Execute         'se ejecuta el query LDAP.
+For i = 0 To rs.Fields.Count - 1        'coloca cabecera.
+    Worksheets("Hoja1").Cells(1, i + 1).Value = rs.Fields(i).Name
+Next
+
+Worksheets("Hoja1").Range("A2").CopyFromRecordset (rs) 'coloca los valores.
+
+rs.Close   'Cierra el flujo de datos.
+cn.Close   'Cierra la conección.
+Set rs = Nothing  'Limpia la variable de datos.
+Set cn = Nothing  'Limpia la variable conección.
+
+End Sub
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
