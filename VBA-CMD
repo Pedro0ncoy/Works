@@ -185,19 +185,17 @@ Set cn = Nothing  'Limpia la variable conección.
 End Sub
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Sub leer_archivo_hoy()
+Sub leerArchivoTextoCondicional()
 
     Dim hoy As Date
-    hoy = Date - 3 'Fecha actualizada 'hoy = "06/06/2019" 'para hacer pruebas
+    Dim fs, carpeta, ruta, archivo, subcarpeta As Object
+    hoy = Date - 5 'Fecha actualizada 'hoy = "06/06/2019" 'para hacer pruebas
     hoy_format = "CESADOS_" & Format(hoy, "ddmmyyyy") & ".XLS" 'Se formatea: CESADOS_01022016.XLS
+    ruta = "\\10.25.8.243\Segurinfo\SegurInfo\RRHH\CESADOS\"
+    Set fs = CreateObject("Scripting.FileSystemObject")
     Dim marca As Integer
     marca = 0
     
-    Dim ruta As String 'Declaración de variables y objetos
-    ruta = "\\myServer\localzip\"
-    Dim fs, carpeta, archivo, subcarpeta As Object
-    Set fs = CreateObject("Scripting.FileSystemObject")
-
     If ruta = "" Then 'Ajustes por si lee un NULL.
         Exit Sub
     ElseIf Right(ruta, 1) <> "\" Then
@@ -207,21 +205,17 @@ Sub leer_archivo_hoy()
     On Error GoTo ErrHandler  'Objeto Folder de la ruta indicada
     Set carpeta = fs.GetFolder(ruta)
     
-
     For Each archivo In carpeta.Files  'Realiza un recorrido todo el folder.
         If hoy_format = archivo.Name Then 'Compara cada archivo con el mas actualizado.
             marca = 1
         End If
     Next
-    
     'MsgBox marca
     If marca = 1 Then 'Si se encontró el archivo mas actualizado.
         MsgBox "Si se encontró el archivo más actualizado. Se procede."
     Else
         MsgBox "No se encontró el archivo actualizado. Descargarlo y correr nuevamente el proceso."
     End If
-    
-    
     Exit Sub
     
 ErrHandler:
