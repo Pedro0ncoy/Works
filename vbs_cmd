@@ -1,0 +1,47 @@
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''[VBScript]'
+'  Autor: Pedro Bernardo Oncoy Mexzo                                                          '
+'  Version: v1 / F:2019-06-12                                                                 '
+'  Recolector de datos de usuarios por MAPI                                                   '
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Dim ToAddress,MessageSubject,MessageBody,MessageAttachment
+Dim ol, ns, newMail
+Dim Hostname, Usuario, SenderMail, Sysdate
+Dim borderHMTL
+
+borderHMTL=1
+ToAddress = "usuario@domainmail.com" 'destinatario
+MessageSubject = "mySubject: "
+
+strComputer = "."
+Set objWMIService = GetObject("winmgmts:" & "{impersonationLevel=impersonate}!\\" & strComputer & "\root\cimv2")
+Set colSettings = objWMIService.ExecQuery("Select * from Win32_ComputerSystem")
+
+For Each objComputer in colSettings 
+Hostname=objComputer.Name
+Usuario=objComputer.UserName
+SenderMail="my_sender@domainmail.com"
+Sysdate=now
+Next
+
+Set ol = WScript.CreateObject("Outlook.Application")
+Set ns = ol.getNamespace("MAPI")
+ns.logon "","",true,false
+Set newMail = ol.CreateItem(olMailItem)
+newMail.Subject = MessageSubject
+'newMail.Body = MessageBody & vbCrLf
+
+'newMail.HTMLBody = "<HTML><H2>"&  & "</H2><BODY> </BODY></HTML>" 
+ newMail.HTMLBody = "<!DOCTYPE html><html><body><h2>Extracción satisfactoria.</h2><br><table border=" &borderHMTL& "><tr><th>Hostname</th><th>Usuario</th><th>SenderMail</th><th>Sysdate</th></tr><tr><td>"& Hostname &"</td><td>"& Usuario &"</td><td>mail@domain.com</td><td>"& Sysdate &"</td></tr></table><br>Atte.<br>PROGRAMADOR</body></html>"
+
+' validate the recipient, just in case...
+Set myRecipient = ns.CreateRecipient(ToAddress)
+myRecipient.Resolve
+If Not myRecipient.Resolved Then
+MsgBox "unknown recipient"
+Else
+   newMail.Recipients.Add(myRecipient)
+   newMail.Send
+End If
+
+Set ol = Nothing
+Set ns = Nothing
