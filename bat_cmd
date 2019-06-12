@@ -1,0 +1,28 @@
+findstr "14.07.2010" C:\Users\my\ruta\yo_paso.txt > C:\Users\my\ruta\prueba1.txt
+findstr /g:stringlist.txt /f:filelist.txt > results.out 
+
+copy C:\Users\my\ruta\yo_paso_orginal.lxsl > C:\Users\my\ruta\prueba1.txt /Y
+findstr "14.07.2010" C:\Users\my\ruta\prueba1.txt > C:\Users\my\ruta\yo_paso.txt
+
+ //////////////////////////////////////////////////////
+CLS
+@ECHO OFF
+ECHO FIND BUKUM
+findstr /m /s /i /p /c:"14.07.2010" C:\Users\my\ruta\prueba1.txt > C:\Users\poncoy-e\Desktop\yo_paso.txt
+for /f "delims=" %%a in ('findstr /m /s /i /p /c:"06.06.2019" C:\Users\poncoy-e\Desktop\prueba1.txt') do ^
+copy "%%a" "%cd%" 
+if errorlevel 1 echo nothing found.
+PAUSE
+CLS
+EXIT
+ //////////////////////////////////////////////////////
+ 
+ CLS
+@ECHO OFF
+ECHO FIND BUKUM
+@For /F "Delims=_" %%A In ('FindStr "14.07.2010" C:\Users\poncoy-e\Desktop\prueba1.txt') Do @Copy /Y "%%A).txt">Nul
+if errorlevel 1 echo nothing found.
+PAUSE
+CLS
+EXIT
+ //////////////////////////////////////////////////////
