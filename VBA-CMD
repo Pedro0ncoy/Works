@@ -191,7 +191,7 @@ Sub leerArchivoTextoCondicional()
     Dim fs, carpeta, ruta, archivo, subcarpeta As Object
     hoy = Date - 5 'Fecha actualizada 'hoy = "06/06/2019" 'para hacer pruebas
     hoy_format = "CESADOS_" & Format(hoy, "ddmmyyyy") & ".XLS" 'Se formatea: CESADOS_01022016.XLS
-    ruta = "\\10.25.8.243\Segurinfo\SegurInfo\RRHH\CESADOS\"
+    ruta = "\\MypATH\mY_LOCAL\"
     Set fs = CreateObject("Scripting.FileSystemObject")
     Dim marca As Integer
     marca = 0
