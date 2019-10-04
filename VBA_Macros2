@@ -1,0 +1,64 @@
+'**************  Sistema Abrew:  ***********************************************************
+'Nace el 29-05-2019. Elaborado para poder sistematizar, automatizar y volver inteligente
+'los procesos/controles de seguridad respecto a control de accesos, gestión de incidencias
+'y revisión/Evaluación de proyectos.
+'Elaborado para /@Empresa/
+'
+'@PBOM - Pedro Bernardo Oncoy Mexzo
+'Escrito: 2019-08-16
+'
+'Archivos necesarios: N/A
+'*******************************************************************************************
+
+Sub Abrews() 'método principal.
+
+Cuerpo = "Requisitos de previos:  " & vbNewLine & vbNewLine & "1.-Conexión a la red de banco.  " & vbNewLine & "2.-Ninguna. "
+Mensaje = MsgBox(Cuerpo, vbQuestion + vbYesNo, "SISTEMA ABREWS")
+
+If Mensaje = vbYes Then
+    MsgBox "Incia la macro...", vbInformation, "SISTEMA ABREWS"
+    Carga_tkts 'Reporte_AD.
+    Recarga_dinamica 'extrae el Historico_cesados.
+    MsgBox "Se terminó de ejecutar la macro. ", vbInformation, "SISTEMA ABREWS"
+Else
+    MsgBox "Revisar los requisitos. Macro no se ejecutó.", vbInformation, "SISTEMA ABREWS"
+End If
+    MsgBox "## SISTEMA ABREWS ##" & vbNewLine & " Elaborado para /@Empresa/. " & vbNewLine & " @PBOM " & vbNewLine & "Gracias a dios.", vbInformation, "SISTEMA ABREWS"
+        
+End Sub
+
+Sub Carga_tkts()
+'Initializes variables
+Dim cn As New ADODB.Connection
+Dim rs As New ADODB.Recordset
+Dim ConnectionString As String
+Dim StrQuery As String
+
+    ConnectionString = "Provider=SQLOLEDB;Password=Password;User ID=login;Data Source=server_ip;Initial Catalog=dbname"
+    cn.Open ConnectionString
+    cn.CommandTimeout = 900
+    'StrQuery = "SELECT count(*)FROM dbname.dbo.mytable"
+StrQuery = "SELECT B.FL_STR_PROJECT_NAME AS Proyecto, A.chan_id_by_project AS Ticket, A.chan_opened_date AS FechaReg, A.chan_colsed_date AS FechaCierre, " & _
+"A.chan_bui_sol_date AS FechaAtencion, C.UNAME AS Especialista, E.UNAME AS Cliente, D.CTG_CAPTION as Categoria, A.chan_status_id as estado, A.add_str_11 AS Gerencia " & _
+"FROM tabla1 A INNER JOIN tabla2 B ON A.chan_fl_int_project_id = B.FL_INT_ID INNER JOIN USUARIOS C ON A.chan_responsible_id = C.CODUSUARIO " & _
+"INNER JOIN tabla3 D ON A.chan_category_id = D.CTG_INDEX INNER JOIN USUARIOS AS E ON A.chan_customer_id = E.CODUSUARIO " & _
+"WHERE chan_opened_date between '2019-08-01' and getdate()+ 1"
+
+    rs.Open StrQuery, cn
+    Worksheets("data").Range("A2:J1500").ClearContents
+    Worksheets("data").Range("A2").CopyFromRecordset rs
+    
+    rs.Close   'Cierra el flujo de datos.
+    cn.Close   'Cierra la conección.
+    Set rs = Nothing  'Limpia la variable de datos.
+    Set cn = Nothing  'Limpia la variable conección.
+    'Application.Wait (Now + TimeValue("00:00:10")) 'delay(1500ms)
+End Sub
+
+Sub Recarga_dinamica()
+    ActiveSheet.PivotTables("TablaDinámica1").PivotCache.Refresh
+    ActiveSheet.PivotTables("TablaDinámica2").PivotCache.Refresh
+    ActiveSheet.PivotTables("TablaDinámica3").PivotCache.Refresh
+    ActiveSheet.PivotTables("TablaDinámica5").PivotCache.Refresh
+    ActiveSheet.PivotTables("TablaDinámica6").PivotCache.Refresh
+End Sub
